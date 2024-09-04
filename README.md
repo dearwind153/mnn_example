@@ -16,6 +16,29 @@
 20200205| 1.add object detection;
 20200128| 1.add image classification;
 ## **2.How to use?**
+
+ - (0). install env
+```
+sudo yum install gtk2-devel pkgconfig
+sudo yum install libjpeg-turbo-devel libpng-devel libtiff-devel
+yum install eigen3-devel
+yum install gstreamer1-devel gstreamer1-plugins-base-devel
+sudo yum install gtk3-devel
+
+git clone https://github.com/opencv/opencv.git
+git clone https://github.com/opencv/opencv_contrib.git
+cd opencv && mkdir build && cd build
+
+cmake -D CMAKE_BUILD_TYPE=Release \
+      -D CMAKE_INSTALL_PREFIX=/usr/local \
+      -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+      ..
+make -j$(nproc)  # 使用所有可用的 CPU 核心进行编译
+sudo make install
+echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/opencv.conf
+sudo ldconfig
+```
+
  - (1). convert model
  - - classifier model comes from: https://github.com/tensorflow/models/tree/master/research/slim
  - - object detection model comes from: https://github.com/C-Aniruddh/realtime_object_recognition
